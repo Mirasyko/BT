@@ -29,6 +29,8 @@ Data contains production and consumption of 10 subjects in Beroun. Weather data 
 This directory contains models for optimizing energy redistribution between producers and consumers.
 The goal is to minimize total unallocated energy (unused producer supply and unmet consumer demand) across a month of 15-minute intervals.
 
+More details in `README_MODELS_RENDERED.ipynb`
+
 ### Key components:
 
 Weight Optimization: Find how much energy each producer should allocate to each consumer given a fixed preference structure.
