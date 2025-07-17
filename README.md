@@ -1,50 +1,65 @@
-# BT
+# Community Energy Sharing Optimization
 
-## Introduction
+This repository contains code and models for a bachelor thesis focused on optimizing energy redistribution in a community energy sharing setting. The main objective is to minimize total unallocated energy (unused producer supply and unmet consumer demand) across a month of 15-minute intervals.
 
-This repository contains code for bachelor thesis. We are trying to solve allocation of energy in community energy sharing. The goal is to create model which will minimize total unallocated energy (unused producer supply and unmet consumer demand) across a month of 15-minute intervals.
+## Project Structure
 
-## First Part: Analysis
+- **Analysis/**  
+  Data exploration and analysis notebooks.
+- **Models/**  
+  Core optimization models and utilities:
+  - `dynamic_weights.py`, `static_weights.py`: Weight optimization models.
+  - `heuristics.py`: Heuristic algorithms for preference optimization.
+  - `experiments.py`, `testing.ipynb`: Experimentation and testing scripts.
+  - `utils.py`: Utility functions.
+  - `whole_model.py`: Combined or integrated model.
+- **Outputs/**  
+  Result files, plots, and experiment outputs.
+- **data/**  
+  Data directory (not all raw data included).
+- **Dump/**  
+  Miscellaneous scripts, logs, and intermediate files.
 
-Data were divided into 2 parts. First part was a production of energy and in the second part consumption. These files are not present in the directory, we will only add final version of dataset.
+## Problem Overview
 
-### Data
+The goal is to allocate energy from producers to consumers efficiently, respecting the following constraints:
+- Each consumer can receive energy from up to 5 producers.
+- Preferences (priorities) are assigned as integers (5 = highest, 1 = lowest, 0 = no connection).
+- The allocation must not exceed producer supply or consumer demand.
 
-Data contains production and consumption of 10 subjects in Beroun. Weather data were downloaded from [Czech Hydrometeorological institute](https://intranet.chmi.cz/historicka-data/pocasi/denni-data/Denni-data-dle-z.-123-1998-Sb#). This data were used for regression analysis present in `productionAndWeather.ipynb`.
+### Model Requirements
 
-### Results
+- **Inputs:**  
+  - Producer supply and consumer demand time series (15-minute intervals).
+  - Preference matrix (consumer-producer priorities).
+- **Outputs:**  
+  - Feasible weight and priority matrices.
+  - Total unredistributed energy.
+  - Breakdown of unmet demand and unused supply.
 
-- We arrived at a model consisting of `Lagged_Total`, `Temperature`, `DaylightMinutes`.
-  - `Lagged_Total`    = lagged value of total production
-  - `Temperature`     = average temperature of a day.
-    - This data is not available in time of prediction, but can be approximated using meteorological prediction, because those tend to be correct in this time frame. 
-  - `DaylightMinutes` = Difference between sunrise and sunset in minutes
-- All of the parameters are significant (p-value < 0.05)
-- Model has a $R^2$ equal to $0.6$ which tells us that $60\%$ of variation can be explained by the model
-- We could also choose only model consisting of `DaylightMinutes` and `Lagged_Total`.
-- Variables are correlated so we lose nice interpretation.
+## Optimization Approaches
 
-## Second part: Models
+### Weight Optimization
 
-This directory contains models for optimizing energy redistribution between producers and consumers.
-The goal is to minimize total unallocated energy (unused producer supply and unmet consumer demand) across a month of 15-minute intervals.
+- **Static and Dynamic Models:**  
+  Find optimal energy distribution weights from producers to consumers, given fixed preferences.
+- **Approaches:**  
+  - High-fidelity (non-convex, slow, accurate).
+  - Simplified convex (fast, approximate).
 
-More details in `README_MODELS_RENDERED.ipynb`
+### Preference Optimization
 
-### Key components:
+- **Heuristic Algorithms:**  
+  - Genetic Algorithm (GA)
+  - Simulated Annealing (SA)
+  - Local Search (Hill Climbing)
+- These methods search for consumer preference structures that minimize unallocated energy.
 
-Weight Optimization: Find how much energy each producer should allocate to each consumer given a fixed preference structure.
+## Usage
 
-Preference Optimization: Adjust consumer preferences over producers to improve overall system efficiency.
-
-Two weight optimization models were developed:
-
-A high-fidelity model matching the true simulation closely but non-convex, slow, and memory-intensive.
-
-A simplified convex model that approximates the simulation and solves significantly faster, used for practical runs.
-
-Preference optimization uses:
-
-Genetic Algorithm (GA), Simulated Annealing (SA), and Local Search methods to search the space of possible consumer preferences.
-
-Trade-offs are deliberately made between model fidelity and computational feasibility to favor practical execution over theoretical perfection.
+1. **Data Preparation:**  
+   Place processed data in the `data/` directory.
+2. **Run Models:**  
+   Use scripts in `Models/` to perform optimization. Example:
+   ```sh
+   python Models/dynamic_weights.py
