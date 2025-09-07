@@ -11,14 +11,12 @@ This repository contains code and models for a bachelor thesis focused on optimi
   - `dynamic_weights.py`, `static_weights.py`: Weight optimization models.
   - `heuristics.py`: Heuristic algorithms for preference optimization.
   - `experiments.py`, `testing.ipynb`: Experimentation and testing scripts.
-  - `utils.py`: Utility functions.
-  - `whole_model.py`: Combined or integrated model.
+  - `utils.py`: Help functions.
+  - `whole_model.py`: Main model combining all components. Nonconvex formulation.
 - **Outputs/**  
   Result files, plots, and experiment outputs.
 - **data/**  
   Data directory (not all raw data included).
-- **Dump/**  
-  Miscellaneous scripts, logs, and intermediate files.
 
 ## Problem Overview
 
@@ -63,3 +61,4 @@ The goal is to allocate energy from producers to consumers efficiently, respecti
    Use scripts in `Models/` to perform optimization. Example:
    ```sh
    python Models/dynamic_weights.py
+    ```
