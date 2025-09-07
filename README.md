@@ -15,8 +15,6 @@ This repository contains code and models for a bachelor thesis focused on optimi
   - `whole_model.py`: Main model combining all components. Nonconvex formulation.
 - **Outputs/**  
   Result files, plots, and experiment outputs.
-- **data/**  
-  Data directory (not all raw data included).
 
 ## Problem Overview
 

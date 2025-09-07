@@ -20,8 +20,6 @@ Tento repozitář obsahuje kód a modely vytvořené pro bakalářskou práci za
   * `whole_model.py`: Hlavní model kombinující všechny komponenty. Nekonvexní formulace.
 * **Outputs/**
   Výstupy experimentů, grafy a výsledkové soubory.
-* **data/**
-  Adresář s daty (neobsahuje všechna surová data).
 
 ## Přehled problému
 
